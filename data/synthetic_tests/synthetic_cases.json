@@ -1,0 +1,2878 @@
+[
+  {
+    "case_name": "Case 1: Comfortably Compliant",
+    "expected_status": "Pass under all readings",
+    "package": {
+      "package_id": "case_01_pass_comfortably",
+      "company": "Synthetic Technologies Inc.",
+      "quarter": "Q3 2023",
+      "period_end_date": "2023-09-30",
+      "currency": "USD",
+      "unit_multiplier": 1.0,
+      "income_statement": {
+        "revenues": 100000000.0,
+        "operating_expenses": 0.0,
+        "operating_income": 0.0,
+        "interest_expense": 5000000.0,
+        "tax_expense": 3000000.0,
+        "depreciation_amortization": 7000000.0,
+        "net_income": 15000000.0
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 0.0,
+        "restricted_cash": 0.0,
+        "unrestricted_cash": 20000000.0,
+        "term_loans": 150000000.0,
+        "revolving_loans": 0.0,
+        "capital_leases": 0.0,
+        "letters_of_credit_drawn": 0.0,
+        "other_funded_debt": 0.0
+      },
+      "ledger_accounts": [
+        {
+          "account_code": "1010",
+          "account_name": "Operating Cash Account",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 20000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "2100",
+          "account_name": "Term Loan Facility A",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 150000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6100",
+          "account_name": "Interest Expense on Term Loan",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 5000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6200",
+          "account_name": "Corporate Income Tax Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 3000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6500",
+          "account_name": "Depreciation & Amortization Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 7000000.0,
+          "description": null,
+          "sub_entries": []
+        }
+      ],
+      "claimed_add_backs": [
+        {
+          "addback_id": "cb1",
+          "category": "Restructuring Charges",
+          "claimed_amount": 2000000.0,
+          "description": "Severance costs for warehouse consolidation",
+          "supporting_evidence": "Severance agreements and payroll ledger entries",
+          "contract_clause_reference": null,
+          "quarter": null,
+          "ledger_account_code": null
+        }
+      ],
+      "prior_three_quarters_ebitda": [
+        30000000.0,
+        32000000.0,
+        31000000.0
+      ],
+      "is_approved_by_analyst": false
+    },
+    "ruleset": {
+      "ruleset_id": "ruleset_syn_standard",
+      "version_id": "SYN_v1",
+      "company": "Synthetic Technologies Inc.",
+      "source_hashes": {
+        "syn_doc_1": "hash_syn_123"
+      },
+      "created_at": "2023-01-01T00:00:00Z",
+      "starting_metric": "Consolidated Net Income",
+      "add_backs": [
+        {
+          "rule_id": "ab_interest",
+          "category": "Interest Expense",
+          "description": "Cash interest expense",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Interest Expense",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_taxes",
+          "category": "Taxes",
+          "description": "Taxes on income",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Taxes",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_da",
+          "category": "Depreciation & Amortization",
+          "description": "Depreciation & Amortization",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Depreciation & Amortization",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_restructuring",
+          "category": "Restructuring Charges",
+          "description": "Restructuring costs subject to 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Synergies"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Restructuring Charges",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_synergies",
+          "category": "Synergies",
+          "description": "Pro forma cost savings sharing 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Restructuring Charges"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Synergies",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_tx_fees",
+          "category": "Transaction Expenses",
+          "description": "Transaction expenses capped at greater of $10M and 12.5% pre-EBITDA",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_tx_fees",
+            "cap_type": "GREATER_OF",
+            "dollar_limit": 10000000.0,
+            "percent_limit": 0.125,
+            "basis_metric": "PRE_ADDBACK_EBITDA",
+            "is_aggregate": false,
+            "shared_with_categories": [],
+            "exact_clause": "greater of $10,000,000 and 12.5% of pre-EBITDA",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Transaction Expenses",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        }
+      ],
+      "deductions": [],
+      "net_debt_rule": {
+        "debt_components": [
+          "Term Loans",
+          "Revolving Loans",
+          "Capital Leases"
+        ],
+        "excluded_debt": [],
+        "cash_netting_type": "UNCAPPED_CASH_NETTING",
+        "cash_cap_amount": null,
+        "cash_conditions": [
+          "unrestricted cash"
+        ],
+        "verbatim_clause": "Total Debt less cash",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "covenant_rule": {
+        "covenant_name": "Total Net Leverage Ratio",
+        "governing_section": "Section 7.11",
+        "metric_formula": "Consolidated Net Debt / LTM EBITDA",
+        "testing_frequency": "Quarterly",
+        "schedule": [
+          {
+            "tier_id": "tier_1",
+            "period_description": "Shall not exceed 4.5:1.00",
+            "effective_start_date": null,
+            "effective_end_date": null,
+            "ratio_ceiling": 4.5,
+            "notes": null
+          }
+        ],
+        "acquisition_holiday": null,
+        "verbatim_clause": "Section 7.11 Total Net Leverage Ratio shall not exceed 4.5:1.00",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "interpretations": [],
+      "human_review_items": [],
+      "is_approved": true,
+      "approved_by": null,
+      "approval_timestamp": null
+    }
+  },
+  {
+    "case_name": "Case 2: Direct Covenant Breach",
+    "expected_status": "Fail under all readings",
+    "package": {
+      "package_id": "case_02_breach_high_debt",
+      "company": "Synthetic Technologies Inc.",
+      "quarter": "Q3 2023",
+      "period_end_date": "2023-09-30",
+      "currency": "USD",
+      "unit_multiplier": 1.0,
+      "income_statement": {
+        "revenues": 50000000.0,
+        "operating_expenses": 0.0,
+        "operating_income": 0.0,
+        "interest_expense": 15000000.0,
+        "tax_expense": 1000000.0,
+        "depreciation_amortization": 4000000.0,
+        "net_income": -5000000.0
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 0.0,
+        "restricted_cash": 0.0,
+        "unrestricted_cash": 5000000.0,
+        "term_loans": 400000000.0,
+        "revolving_loans": 50000000.0,
+        "capital_leases": 0.0,
+        "letters_of_credit_drawn": 0.0,
+        "other_funded_debt": 0.0
+      },
+      "ledger_accounts": [
+        {
+          "account_code": "1010",
+          "account_name": "Operating Cash Account",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 5000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "2100",
+          "account_name": "Term Loan Facility A",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 400000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6100",
+          "account_name": "Interest Expense on Term Loan",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 15000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6200",
+          "account_name": "Corporate Income Tax Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 1000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6500",
+          "account_name": "Depreciation & Amortization Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 4000000.0,
+          "description": null,
+          "sub_entries": []
+        }
+      ],
+      "claimed_add_backs": [],
+      "prior_three_quarters_ebitda": [
+        15000000.0,
+        15000000.0,
+        15000000.0
+      ],
+      "is_approved_by_analyst": false
+    },
+    "ruleset": {
+      "ruleset_id": "ruleset_syn_standard",
+      "version_id": "SYN_v1",
+      "company": "Synthetic Technologies Inc.",
+      "source_hashes": {
+        "syn_doc_1": "hash_syn_123"
+      },
+      "created_at": "2023-01-01T00:00:00Z",
+      "starting_metric": "Consolidated Net Income",
+      "add_backs": [
+        {
+          "rule_id": "ab_interest",
+          "category": "Interest Expense",
+          "description": "Cash interest expense",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Interest Expense",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_taxes",
+          "category": "Taxes",
+          "description": "Taxes on income",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Taxes",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_da",
+          "category": "Depreciation & Amortization",
+          "description": "Depreciation & Amortization",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Depreciation & Amortization",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_restructuring",
+          "category": "Restructuring Charges",
+          "description": "Restructuring costs subject to 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Synergies"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Restructuring Charges",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_synergies",
+          "category": "Synergies",
+          "description": "Pro forma cost savings sharing 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Restructuring Charges"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Synergies",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_tx_fees",
+          "category": "Transaction Expenses",
+          "description": "Transaction expenses capped at greater of $10M and 12.5% pre-EBITDA",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_tx_fees",
+            "cap_type": "GREATER_OF",
+            "dollar_limit": 10000000.0,
+            "percent_limit": 0.125,
+            "basis_metric": "PRE_ADDBACK_EBITDA",
+            "is_aggregate": false,
+            "shared_with_categories": [],
+            "exact_clause": "greater of $10,000,000 and 12.5% of pre-EBITDA",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Transaction Expenses",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        }
+      ],
+      "deductions": [],
+      "net_debt_rule": {
+        "debt_components": [
+          "Term Loans",
+          "Revolving Loans",
+          "Capital Leases"
+        ],
+        "excluded_debt": [],
+        "cash_netting_type": "UNCAPPED_CASH_NETTING",
+        "cash_cap_amount": null,
+        "cash_conditions": [
+          "unrestricted cash"
+        ],
+        "verbatim_clause": "Total Debt less cash",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "covenant_rule": {
+        "covenant_name": "Total Net Leverage Ratio",
+        "governing_section": "Section 7.11",
+        "metric_formula": "Consolidated Net Debt / LTM EBITDA",
+        "testing_frequency": "Quarterly",
+        "schedule": [
+          {
+            "tier_id": "tier_1",
+            "period_description": "Shall not exceed 4.5:1.00",
+            "effective_start_date": null,
+            "effective_end_date": null,
+            "ratio_ceiling": 4.5,
+            "notes": null
+          }
+        ],
+        "acquisition_holiday": null,
+        "verbatim_clause": "Section 7.11 Total Net Leverage Ratio shall not exceed 4.5:1.00",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "interpretations": [],
+      "human_review_items": [],
+      "is_approved": true,
+      "approved_by": null,
+      "approval_timestamp": null
+    }
+  },
+  {
+    "case_name": "Case 3: Capped Add-back Haircut",
+    "expected_status": "Pass under all readings",
+    "package": {
+      "package_id": "case_03_capped_addback_haircut",
+      "company": "Synthetic Technologies Inc.",
+      "quarter": "Q3 2023",
+      "period_end_date": "2023-09-30",
+      "currency": "USD",
+      "unit_multiplier": 1.0,
+      "income_statement": {
+        "revenues": 80000000.0,
+        "operating_expenses": 0.0,
+        "operating_income": 0.0,
+        "interest_expense": 4000000.0,
+        "tax_expense": 2000000.0,
+        "depreciation_amortization": 4000000.0,
+        "net_income": 10000000.0
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 0.0,
+        "restricted_cash": 0.0,
+        "unrestricted_cash": 10000000.0,
+        "term_loans": 180000000.0,
+        "revolving_loans": 0.0,
+        "capital_leases": 0.0,
+        "letters_of_credit_drawn": 0.0,
+        "other_funded_debt": 0.0
+      },
+      "ledger_accounts": [
+        {
+          "account_code": "1010",
+          "account_name": "Operating Cash Account",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 10000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "2100",
+          "account_name": "Term Loan Facility A",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 180000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6100",
+          "account_name": "Interest Expense on Term Loan",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 4000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6200",
+          "account_name": "Corporate Income Tax Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 2000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6500",
+          "account_name": "Depreciation & Amortization Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 4000000.0,
+          "description": null,
+          "sub_entries": []
+        }
+      ],
+      "claimed_add_backs": [
+        {
+          "addback_id": "cb3",
+          "category": "Restructuring Charges",
+          "claimed_amount": 25000000.0,
+          "description": "Massive restructuring overhaul",
+          "supporting_evidence": "Board minutes and vendor invoices",
+          "contract_clause_reference": null,
+          "quarter": null,
+          "ledger_account_code": null
+        }
+      ],
+      "prior_three_quarters_ebitda": [
+        25000000.0,
+        25000000.0,
+        25000000.0
+      ],
+      "is_approved_by_analyst": false
+    },
+    "ruleset": {
+      "ruleset_id": "ruleset_syn_standard",
+      "version_id": "SYN_v1",
+      "company": "Synthetic Technologies Inc.",
+      "source_hashes": {
+        "syn_doc_1": "hash_syn_123"
+      },
+      "created_at": "2023-01-01T00:00:00Z",
+      "starting_metric": "Consolidated Net Income",
+      "add_backs": [
+        {
+          "rule_id": "ab_interest",
+          "category": "Interest Expense",
+          "description": "Cash interest expense",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Interest Expense",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_taxes",
+          "category": "Taxes",
+          "description": "Taxes on income",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Taxes",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_da",
+          "category": "Depreciation & Amortization",
+          "description": "Depreciation & Amortization",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Depreciation & Amortization",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_restructuring",
+          "category": "Restructuring Charges",
+          "description": "Restructuring costs subject to 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Synergies"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Restructuring Charges",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_synergies",
+          "category": "Synergies",
+          "description": "Pro forma cost savings sharing 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Restructuring Charges"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Synergies",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_tx_fees",
+          "category": "Transaction Expenses",
+          "description": "Transaction expenses capped at greater of $10M and 12.5% pre-EBITDA",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_tx_fees",
+            "cap_type": "GREATER_OF",
+            "dollar_limit": 10000000.0,
+            "percent_limit": 0.125,
+            "basis_metric": "PRE_ADDBACK_EBITDA",
+            "is_aggregate": false,
+            "shared_with_categories": [],
+            "exact_clause": "greater of $10,000,000 and 12.5% of pre-EBITDA",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Transaction Expenses",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        }
+      ],
+      "deductions": [],
+      "net_debt_rule": {
+        "debt_components": [
+          "Term Loans",
+          "Revolving Loans",
+          "Capital Leases"
+        ],
+        "excluded_debt": [],
+        "cash_netting_type": "UNCAPPED_CASH_NETTING",
+        "cash_cap_amount": null,
+        "cash_conditions": [
+          "unrestricted cash"
+        ],
+        "verbatim_clause": "Total Debt less cash",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "covenant_rule": {
+        "covenant_name": "Total Net Leverage Ratio",
+        "governing_section": "Section 7.11",
+        "metric_formula": "Consolidated Net Debt / LTM EBITDA",
+        "testing_frequency": "Quarterly",
+        "schedule": [
+          {
+            "tier_id": "tier_1",
+            "period_description": "Shall not exceed 4.5:1.00",
+            "effective_start_date": null,
+            "effective_end_date": null,
+            "ratio_ceiling": 4.5,
+            "notes": null
+          }
+        ],
+        "acquisition_holiday": null,
+        "verbatim_clause": "Section 7.11 Total Net Leverage Ratio shall not exceed 4.5:1.00",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "interpretations": [],
+      "human_review_items": [],
+      "is_approved": true,
+      "approved_by": null,
+      "approval_timestamp": null
+    }
+  },
+  {
+    "case_name": "Case 4: Circular Post-EBITDA Cap Algebraic Exactness",
+    "expected_status": "Pass under all readings",
+    "package": {
+      "package_id": "case_04_circular_post_ebitda_cap",
+      "company": "Synthetic Technologies Inc.",
+      "quarter": "Q3 2023",
+      "period_end_date": "2023-09-30",
+      "currency": "USD",
+      "unit_multiplier": 1.0,
+      "income_statement": {
+        "revenues": 90000000.0,
+        "operating_expenses": 0.0,
+        "operating_income": 0.0,
+        "interest_expense": 6000000.0,
+        "tax_expense": 2000000.0,
+        "depreciation_amortization": 10000000.0,
+        "net_income": 12000000.0
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 0.0,
+        "restricted_cash": 0.0,
+        "unrestricted_cash": 15000000.0,
+        "term_loans": 220000000.0,
+        "revolving_loans": 0.0,
+        "capital_leases": 0.0,
+        "letters_of_credit_drawn": 0.0,
+        "other_funded_debt": 0.0
+      },
+      "ledger_accounts": [
+        {
+          "account_code": "1010",
+          "account_name": "Operating Cash Account",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 15000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "2100",
+          "account_name": "Term Loan Facility A",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 220000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6100",
+          "account_name": "Interest Expense on Term Loan",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 6000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6200",
+          "account_name": "Corporate Income Tax Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 2000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6500",
+          "account_name": "Depreciation & Amortization Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 10000000.0,
+          "description": null,
+          "sub_entries": []
+        }
+      ],
+      "claimed_add_backs": [
+        {
+          "addback_id": "cb4",
+          "category": "Restructuring Charges",
+          "claimed_amount": 15000000.0,
+          "description": "Facility closure charges",
+          "supporting_evidence": "Detailed closing ledger",
+          "contract_clause_reference": null,
+          "quarter": null,
+          "ledger_account_code": null
+        }
+      ],
+      "prior_three_quarters_ebitda": [
+        35000000.0,
+        35000000.0,
+        35000000.0
+      ],
+      "is_approved_by_analyst": false
+    },
+    "ruleset": {
+      "ruleset_id": "ruleset_syn_standard",
+      "version_id": "SYN_v1",
+      "company": "Synthetic Technologies Inc.",
+      "source_hashes": {
+        "syn_doc_1": "hash_syn_123"
+      },
+      "created_at": "2023-01-01T00:00:00Z",
+      "starting_metric": "Consolidated Net Income",
+      "add_backs": [
+        {
+          "rule_id": "ab_interest",
+          "category": "Interest Expense",
+          "description": "Cash interest expense",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Interest Expense",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_taxes",
+          "category": "Taxes",
+          "description": "Taxes on income",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Taxes",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_da",
+          "category": "Depreciation & Amortization",
+          "description": "Depreciation & Amortization",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Depreciation & Amortization",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_restructuring",
+          "category": "Restructuring Charges",
+          "description": "Restructuring costs subject to 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Synergies"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Restructuring Charges",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_synergies",
+          "category": "Synergies",
+          "description": "Pro forma cost savings sharing 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Restructuring Charges"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Synergies",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_tx_fees",
+          "category": "Transaction Expenses",
+          "description": "Transaction expenses capped at greater of $10M and 12.5% pre-EBITDA",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_tx_fees",
+            "cap_type": "GREATER_OF",
+            "dollar_limit": 10000000.0,
+            "percent_limit": 0.125,
+            "basis_metric": "PRE_ADDBACK_EBITDA",
+            "is_aggregate": false,
+            "shared_with_categories": [],
+            "exact_clause": "greater of $10,000,000 and 12.5% of pre-EBITDA",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Transaction Expenses",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        }
+      ],
+      "deductions": [],
+      "net_debt_rule": {
+        "debt_components": [
+          "Term Loans",
+          "Revolving Loans",
+          "Capital Leases"
+        ],
+        "excluded_debt": [],
+        "cash_netting_type": "UNCAPPED_CASH_NETTING",
+        "cash_cap_amount": null,
+        "cash_conditions": [
+          "unrestricted cash"
+        ],
+        "verbatim_clause": "Total Debt less cash",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "covenant_rule": {
+        "covenant_name": "Total Net Leverage Ratio",
+        "governing_section": "Section 7.11",
+        "metric_formula": "Consolidated Net Debt / LTM EBITDA",
+        "testing_frequency": "Quarterly",
+        "schedule": [
+          {
+            "tier_id": "tier_1",
+            "period_description": "Shall not exceed 4.5:1.00",
+            "effective_start_date": null,
+            "effective_end_date": null,
+            "ratio_ceiling": 4.5,
+            "notes": null
+          }
+        ],
+        "acquisition_holiday": null,
+        "verbatim_clause": "Section 7.11 Total Net Leverage Ratio shall not exceed 4.5:1.00",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "interpretations": [],
+      "human_review_items": [],
+      "is_approved": true,
+      "approved_by": null,
+      "approval_timestamp": null
+    }
+  },
+  {
+    "case_name": "Case 5: Contractual Cash Netting Cap ($37.5M)",
+    "expected_status": "Pass under all readings",
+    "package": {
+      "package_id": "case_05_contractual_cash_netting_cap",
+      "company": "Synthetic Technologies Inc.",
+      "quarter": "Q3 2023",
+      "period_end_date": "2023-09-30",
+      "currency": "USD",
+      "unit_multiplier": 1.0,
+      "income_statement": {
+        "revenues": 70000000.0,
+        "operating_expenses": 0.0,
+        "operating_income": 0.0,
+        "interest_expense": 4000000.0,
+        "tax_expense": 2000000.0,
+        "depreciation_amortization": 6000000.0,
+        "net_income": 8000000.0
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 0.0,
+        "restricted_cash": 0.0,
+        "unrestricted_cash": 60000000.0,
+        "term_loans": 200000000.0,
+        "revolving_loans": 0.0,
+        "capital_leases": 0.0,
+        "letters_of_credit_drawn": 0.0,
+        "other_funded_debt": 0.0
+      },
+      "ledger_accounts": [
+        {
+          "account_code": "1010",
+          "account_name": "Operating Cash Account",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 60000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "2100",
+          "account_name": "Term Loan Facility A",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 200000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6100",
+          "account_name": "Interest Expense on Term Loan",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 4000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6200",
+          "account_name": "Corporate Income Tax Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 2000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6500",
+          "account_name": "Depreciation & Amortization Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 6000000.0,
+          "description": null,
+          "sub_entries": []
+        }
+      ],
+      "claimed_add_backs": [],
+      "prior_three_quarters_ebitda": [
+        20000000.0,
+        20000000.0,
+        20000000.0
+      ],
+      "is_approved_by_analyst": false
+    },
+    "ruleset": {
+      "ruleset_id": "ruleset_syn_standard",
+      "version_id": "SYN_v1",
+      "company": "Synthetic Technologies Inc.",
+      "source_hashes": {
+        "syn_doc_1": "hash_syn_123"
+      },
+      "created_at": "2023-01-01T00:00:00Z",
+      "starting_metric": "Consolidated Net Income",
+      "add_backs": [
+        {
+          "rule_id": "ab_interest",
+          "category": "Interest Expense",
+          "description": "Cash interest expense",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Interest Expense",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_taxes",
+          "category": "Taxes",
+          "description": "Taxes on income",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Taxes",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_da",
+          "category": "Depreciation & Amortization",
+          "description": "Depreciation & Amortization",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Depreciation & Amortization",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_restructuring",
+          "category": "Restructuring Charges",
+          "description": "Restructuring costs subject to 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Synergies"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Restructuring Charges",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_synergies",
+          "category": "Synergies",
+          "description": "Pro forma cost savings sharing 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Restructuring Charges"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Synergies",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_tx_fees",
+          "category": "Transaction Expenses",
+          "description": "Transaction expenses capped at greater of $10M and 12.5% pre-EBITDA",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_tx_fees",
+            "cap_type": "GREATER_OF",
+            "dollar_limit": 10000000.0,
+            "percent_limit": 0.125,
+            "basis_metric": "PRE_ADDBACK_EBITDA",
+            "is_aggregate": false,
+            "shared_with_categories": [],
+            "exact_clause": "greater of $10,000,000 and 12.5% of pre-EBITDA",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Transaction Expenses",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        }
+      ],
+      "deductions": [],
+      "net_debt_rule": {
+        "debt_components": [
+          "Term Loans",
+          "Revolving Loans",
+          "Capital Leases"
+        ],
+        "excluded_debt": [],
+        "cash_netting_type": "CAPPED_CASH_NETTING",
+        "cash_cap_amount": 37500000.0,
+        "cash_conditions": [
+          "unrestricted cash"
+        ],
+        "verbatim_clause": "Total Debt less cash",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "covenant_rule": {
+        "covenant_name": "Total Net Leverage Ratio",
+        "governing_section": "Section 7.11",
+        "metric_formula": "Consolidated Net Debt / LTM EBITDA",
+        "testing_frequency": "Quarterly",
+        "schedule": [
+          {
+            "tier_id": "tier_1",
+            "period_description": "Shall not exceed 4.5:1.00",
+            "effective_start_date": null,
+            "effective_end_date": null,
+            "ratio_ceiling": 4.5,
+            "notes": null
+          }
+        ],
+        "acquisition_holiday": null,
+        "verbatim_clause": "Section 7.11 Total Net Leverage Ratio shall not exceed 4.5:1.00",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "interpretations": [],
+      "human_review_items": [],
+      "is_approved": true,
+      "approved_by": null,
+      "approval_timestamp": null
+    }
+  },
+  {
+    "case_name": "Case 6: Unallocated Aggregate Cap Overrun",
+    "expected_status": "Cannot compute",
+    "package": {
+      "package_id": "case_06_unallocated_aggregate_cap_overrun",
+      "company": "Synthetic Technologies Inc.",
+      "quarter": "Q3 2023",
+      "period_end_date": "2023-09-30",
+      "currency": "USD",
+      "unit_multiplier": 1.0,
+      "income_statement": {
+        "revenues": 60000000.0,
+        "operating_expenses": 0.0,
+        "operating_income": 0.0,
+        "interest_expense": 4000000.0,
+        "tax_expense": 2000000.0,
+        "depreciation_amortization": 8000000.0,
+        "net_income": 6000000.0
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 0.0,
+        "restricted_cash": 0.0,
+        "unrestricted_cash": 10000000.0,
+        "term_loans": 210000000.0,
+        "revolving_loans": 0.0,
+        "capital_leases": 0.0,
+        "letters_of_credit_drawn": 0.0,
+        "other_funded_debt": 0.0
+      },
+      "ledger_accounts": [
+        {
+          "account_code": "1010",
+          "account_name": "Operating Cash Account",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 10000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "2100",
+          "account_name": "Term Loan Facility A",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 210000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6100",
+          "account_name": "Interest Expense on Term Loan",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 4000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6200",
+          "account_name": "Corporate Income Tax Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 2000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6500",
+          "account_name": "Depreciation & Amortization Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 8000000.0,
+          "description": null,
+          "sub_entries": []
+        }
+      ],
+      "claimed_add_backs": [
+        {
+          "addback_id": "cb6_a",
+          "category": "Restructuring Charges",
+          "claimed_amount": 5000000.0,
+          "description": "Severance charges",
+          "supporting_evidence": "Approved severance schedule",
+          "contract_clause_reference": null,
+          "quarter": null,
+          "ledger_account_code": null
+        },
+        {
+          "addback_id": "cb6_b",
+          "category": "Synergies",
+          "claimed_amount": 5000000.0,
+          "description": "Cost savings synergies",
+          "supporting_evidence": "Third-party synergy audit report",
+          "contract_clause_reference": null,
+          "quarter": null,
+          "ledger_account_code": null
+        }
+      ],
+      "prior_three_quarters_ebitda": [
+        25000000.0,
+        25000000.0,
+        25000000.0
+      ],
+      "is_approved_by_analyst": false
+    },
+    "ruleset": {
+      "ruleset_id": "ruleset_syn_standard",
+      "version_id": "SYN_v1",
+      "company": "Synthetic Technologies Inc.",
+      "source_hashes": {
+        "syn_doc_1": "hash_syn_123"
+      },
+      "created_at": "2023-01-01T00:00:00Z",
+      "starting_metric": "Consolidated Net Income",
+      "add_backs": [
+        {
+          "rule_id": "ab_interest",
+          "category": "Interest Expense",
+          "description": "Cash interest expense",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Interest Expense",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_taxes",
+          "category": "Taxes",
+          "description": "Taxes on income",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Taxes",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_da",
+          "category": "Depreciation & Amortization",
+          "description": "Depreciation & Amortization",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Depreciation & Amortization",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_restructuring",
+          "category": "Restructuring Charges",
+          "description": "Restructuring costs subject to 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Synergies"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Restructuring Charges",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_synergies",
+          "category": "Synergies",
+          "description": "Pro forma cost savings sharing 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Restructuring Charges"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Synergies",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_tx_fees",
+          "category": "Transaction Expenses",
+          "description": "Transaction expenses capped at greater of $10M and 12.5% pre-EBITDA",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_tx_fees",
+            "cap_type": "GREATER_OF",
+            "dollar_limit": 10000000.0,
+            "percent_limit": 0.125,
+            "basis_metric": "PRE_ADDBACK_EBITDA",
+            "is_aggregate": false,
+            "shared_with_categories": [],
+            "exact_clause": "greater of $10,000,000 and 12.5% of pre-EBITDA",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Transaction Expenses",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        }
+      ],
+      "deductions": [],
+      "net_debt_rule": {
+        "debt_components": [
+          "Term Loans",
+          "Revolving Loans",
+          "Capital Leases"
+        ],
+        "excluded_debt": [],
+        "cash_netting_type": "UNCAPPED_CASH_NETTING",
+        "cash_cap_amount": null,
+        "cash_conditions": [
+          "unrestricted cash"
+        ],
+        "verbatim_clause": "Total Debt less cash",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "covenant_rule": {
+        "covenant_name": "Total Net Leverage Ratio",
+        "governing_section": "Section 7.11",
+        "metric_formula": "Consolidated Net Debt / LTM EBITDA",
+        "testing_frequency": "Quarterly",
+        "schedule": [
+          {
+            "tier_id": "tier_1",
+            "period_description": "Shall not exceed 4.5:1.00",
+            "effective_start_date": null,
+            "effective_end_date": null,
+            "ratio_ceiling": 4.5,
+            "notes": null
+          }
+        ],
+        "acquisition_holiday": null,
+        "verbatim_clause": "Section 7.11 Total Net Leverage Ratio shall not exceed 4.5:1.00",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "interpretations": [],
+      "human_review_items": [],
+      "is_approved": true,
+      "approved_by": null,
+      "approval_timestamp": null
+    }
+  },
+  {
+    "case_name": "Case 7: Outcome Depends on a Reading",
+    "expected_status": "Outcome depends on a reading",
+    "package": {
+      "package_id": "case_07_outcome_depends",
+      "company": "Synthetic Technologies Inc.",
+      "quarter": "Q3 2023",
+      "period_end_date": "2023-09-30",
+      "currency": "USD",
+      "unit_multiplier": 1.0,
+      "income_statement": {
+        "revenues": 70000000.0,
+        "operating_expenses": 0.0,
+        "operating_income": 0.0,
+        "interest_expense": 4000000.0,
+        "tax_expense": 2000000.0,
+        "depreciation_amortization": 8000000.0,
+        "net_income": 6000000.0
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 0.0,
+        "restricted_cash": 0.0,
+        "unrestricted_cash": 10000000.0,
+        "term_loans": 490000000.0,
+        "revolving_loans": 0.0,
+        "capital_leases": 0.0,
+        "letters_of_credit_drawn": 0.0,
+        "other_funded_debt": 0.0
+      },
+      "ledger_accounts": [
+        {
+          "account_code": "1010",
+          "account_name": "Operating Cash Account",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 10000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "2100",
+          "account_name": "Term Loan Facility A",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 490000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6100",
+          "account_name": "Interest Expense on Term Loan",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 4000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6200",
+          "account_name": "Corporate Income Tax Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 2000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6500",
+          "account_name": "Depreciation & Amortization Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 8000000.0,
+          "description": null,
+          "sub_entries": []
+        }
+      ],
+      "claimed_add_backs": [
+        {
+          "addback_id": "cb7",
+          "category": "Restructuring Charges",
+          "claimed_amount": 8000000.0,
+          "description": "Restructuring project",
+          "supporting_evidence": "Audited invoices",
+          "contract_clause_reference": null,
+          "quarter": null,
+          "ledger_account_code": null
+        }
+      ],
+      "prior_three_quarters_ebitda": [
+        26670000.0,
+        26670000.0,
+        26670000.0
+      ],
+      "is_approved_by_analyst": false
+    },
+    "ruleset": {
+      "ruleset_id": "ruleset_syn_standard",
+      "version_id": "SYN_v1",
+      "company": "Synthetic Technologies Inc.",
+      "source_hashes": {
+        "syn_doc_1": "hash_syn_123"
+      },
+      "created_at": "2023-01-01T00:00:00Z",
+      "starting_metric": "Consolidated Net Income",
+      "add_backs": [
+        {
+          "rule_id": "ab_interest",
+          "category": "Interest Expense",
+          "description": "Cash interest expense",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Interest Expense",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_taxes",
+          "category": "Taxes",
+          "description": "Taxes on income",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Taxes",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_da",
+          "category": "Depreciation & Amortization",
+          "description": "Depreciation & Amortization",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Depreciation & Amortization",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_restructuring",
+          "category": "Restructuring Charges",
+          "description": "Restructuring costs subject to 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Synergies"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Restructuring Charges",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_synergies",
+          "category": "Synergies",
+          "description": "Pro forma cost savings sharing 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Restructuring Charges"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Synergies",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_tx_fees",
+          "category": "Transaction Expenses",
+          "description": "Transaction expenses capped at greater of $10M and 12.5% pre-EBITDA",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_tx_fees",
+            "cap_type": "GREATER_OF",
+            "dollar_limit": 10000000.0,
+            "percent_limit": 0.125,
+            "basis_metric": "PRE_ADDBACK_EBITDA",
+            "is_aggregate": false,
+            "shared_with_categories": [],
+            "exact_clause": "greater of $10,000,000 and 12.5% of pre-EBITDA",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Transaction Expenses",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        }
+      ],
+      "deductions": [],
+      "net_debt_rule": {
+        "debt_components": [
+          "Term Loans",
+          "Revolving Loans",
+          "Capital Leases"
+        ],
+        "excluded_debt": [],
+        "cash_netting_type": "UNCAPPED_CASH_NETTING",
+        "cash_cap_amount": null,
+        "cash_conditions": [
+          "unrestricted cash"
+        ],
+        "verbatim_clause": "Total Debt less cash",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "covenant_rule": {
+        "covenant_name": "Total Net Leverage Ratio",
+        "governing_section": "Section 7.11",
+        "metric_formula": "Consolidated Net Debt / LTM EBITDA",
+        "testing_frequency": "Quarterly",
+        "schedule": [
+          {
+            "tier_id": "tier_1",
+            "period_description": "Shall not exceed 4.55:1.00",
+            "effective_start_date": null,
+            "effective_end_date": null,
+            "ratio_ceiling": 4.55,
+            "notes": null
+          }
+        ],
+        "acquisition_holiday": null,
+        "verbatim_clause": "Section 7.11 Total Net Leverage Ratio shall not exceed 4.55:1.00",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "interpretations": [
+        {
+          "ambiguity_id": "interp_synergy_cap",
+          "clause_reference": "Clause (iv) Synergies",
+          "issue_description": "Ambiguity whether 20% cap applies to pre-EBITDA or post-EBITDA",
+          "interpretation_a": {
+            "reading": "pre_ebitda",
+            "cap_percent": 0.2
+          },
+          "interpretation_b": {
+            "reading": "post_ebitda_circular",
+            "cap_percent": 0.2
+          },
+          "recommended_reading": "interpretation_a",
+          "flagged_for_human_review": true
+        }
+      ],
+      "human_review_items": [],
+      "is_approved": true,
+      "approved_by": null,
+      "approval_timestamp": null
+    }
+  },
+  {
+    "case_name": "Case 8: Negative EBITDA Scenario",
+    "expected_status": "Cannot compute",
+    "package": {
+      "package_id": "case_08_negative_ebitda",
+      "company": "Synthetic Technologies Inc.",
+      "quarter": "Q3 2023",
+      "period_end_date": "2023-09-30",
+      "currency": "USD",
+      "unit_multiplier": 1.0,
+      "income_statement": {
+        "revenues": 20000000.0,
+        "operating_expenses": 0.0,
+        "operating_income": 0.0,
+        "interest_expense": 3000000.0,
+        "tax_expense": 0.0,
+        "depreciation_amortization": 2000000.0,
+        "net_income": -40000000.0
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 0.0,
+        "restricted_cash": 0.0,
+        "unrestricted_cash": 5000000.0,
+        "term_loans": 100000000.0,
+        "revolving_loans": 0.0,
+        "capital_leases": 0.0,
+        "letters_of_credit_drawn": 0.0,
+        "other_funded_debt": 0.0
+      },
+      "ledger_accounts": [
+        {
+          "account_code": "1010",
+          "account_name": "Operating Cash Account",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 5000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "2100",
+          "account_name": "Term Loan Facility A",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 100000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6100",
+          "account_name": "Interest Expense on Term Loan",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 3000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6200",
+          "account_name": "Corporate Income Tax Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 0.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6500",
+          "account_name": "Depreciation & Amortization Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 2000000.0,
+          "description": null,
+          "sub_entries": []
+        }
+      ],
+      "claimed_add_backs": [],
+      "prior_three_quarters_ebitda": [
+        -10000000.0,
+        -5000000.0,
+        -5000000.0
+      ],
+      "is_approved_by_analyst": false
+    },
+    "ruleset": {
+      "ruleset_id": "ruleset_syn_standard",
+      "version_id": "SYN_v1",
+      "company": "Synthetic Technologies Inc.",
+      "source_hashes": {
+        "syn_doc_1": "hash_syn_123"
+      },
+      "created_at": "2023-01-01T00:00:00Z",
+      "starting_metric": "Consolidated Net Income",
+      "add_backs": [
+        {
+          "rule_id": "ab_interest",
+          "category": "Interest Expense",
+          "description": "Cash interest expense",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Interest Expense",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_taxes",
+          "category": "Taxes",
+          "description": "Taxes on income",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Taxes",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_da",
+          "category": "Depreciation & Amortization",
+          "description": "Depreciation & Amortization",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Depreciation & Amortization",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_restructuring",
+          "category": "Restructuring Charges",
+          "description": "Restructuring costs subject to 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Synergies"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Restructuring Charges",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_synergies",
+          "category": "Synergies",
+          "description": "Pro forma cost savings sharing 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Restructuring Charges"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Synergies",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_tx_fees",
+          "category": "Transaction Expenses",
+          "description": "Transaction expenses capped at greater of $10M and 12.5% pre-EBITDA",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_tx_fees",
+            "cap_type": "GREATER_OF",
+            "dollar_limit": 10000000.0,
+            "percent_limit": 0.125,
+            "basis_metric": "PRE_ADDBACK_EBITDA",
+            "is_aggregate": false,
+            "shared_with_categories": [],
+            "exact_clause": "greater of $10,000,000 and 12.5% of pre-EBITDA",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Transaction Expenses",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        }
+      ],
+      "deductions": [],
+      "net_debt_rule": {
+        "debt_components": [
+          "Term Loans",
+          "Revolving Loans",
+          "Capital Leases"
+        ],
+        "excluded_debt": [],
+        "cash_netting_type": "UNCAPPED_CASH_NETTING",
+        "cash_cap_amount": null,
+        "cash_conditions": [
+          "unrestricted cash"
+        ],
+        "verbatim_clause": "Total Debt less cash",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "covenant_rule": {
+        "covenant_name": "Total Net Leverage Ratio",
+        "governing_section": "Section 7.11",
+        "metric_formula": "Consolidated Net Debt / LTM EBITDA",
+        "testing_frequency": "Quarterly",
+        "schedule": [
+          {
+            "tier_id": "tier_1",
+            "period_description": "Shall not exceed 4.5:1.00",
+            "effective_start_date": null,
+            "effective_end_date": null,
+            "ratio_ceiling": 4.5,
+            "notes": null
+          }
+        ],
+        "acquisition_holiday": null,
+        "verbatim_clause": "Section 7.11 Total Net Leverage Ratio shall not exceed 4.5:1.00",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "interpretations": [],
+      "human_review_items": [],
+      "is_approved": true,
+      "approved_by": null,
+      "approval_timestamp": null
+    }
+  },
+  {
+    "case_name": "Case 9: Zero EBITDA Scenario",
+    "expected_status": "Cannot compute",
+    "package": {
+      "package_id": "case_09_zero_ebitda",
+      "company": "Synthetic Technologies Inc.",
+      "quarter": "Q3 2023",
+      "period_end_date": "2023-09-30",
+      "currency": "USD",
+      "unit_multiplier": 1.0,
+      "income_statement": {
+        "revenues": 20000000.0,
+        "operating_expenses": 0.0,
+        "operating_income": 0.0,
+        "interest_expense": 4000000.0,
+        "tax_expense": 1000000.0,
+        "depreciation_amortization": 5000000.0,
+        "net_income": -10000000.0
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 0.0,
+        "restricted_cash": 0.0,
+        "unrestricted_cash": 5000000.0,
+        "term_loans": 100000000.0,
+        "revolving_loans": 0.0,
+        "capital_leases": 0.0,
+        "letters_of_credit_drawn": 0.0,
+        "other_funded_debt": 0.0
+      },
+      "ledger_accounts": [
+        {
+          "account_code": "1010",
+          "account_name": "Operating Cash Account",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 5000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "2100",
+          "account_name": "Term Loan Facility A",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 100000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6100",
+          "account_name": "Interest Expense on Term Loan",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 4000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6200",
+          "account_name": "Corporate Income Tax Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 1000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6500",
+          "account_name": "Depreciation & Amortization Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 5000000.0,
+          "description": null,
+          "sub_entries": []
+        }
+      ],
+      "claimed_add_backs": [],
+      "prior_three_quarters_ebitda": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "is_approved_by_analyst": false
+    },
+    "ruleset": {
+      "ruleset_id": "ruleset_syn_standard",
+      "version_id": "SYN_v1",
+      "company": "Synthetic Technologies Inc.",
+      "source_hashes": {
+        "syn_doc_1": "hash_syn_123"
+      },
+      "created_at": "2023-01-01T00:00:00Z",
+      "starting_metric": "Consolidated Net Income",
+      "add_backs": [
+        {
+          "rule_id": "ab_interest",
+          "category": "Interest Expense",
+          "description": "Cash interest expense",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Interest Expense",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_taxes",
+          "category": "Taxes",
+          "description": "Taxes on income",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Taxes",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_da",
+          "category": "Depreciation & Amortization",
+          "description": "Depreciation & Amortization",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Depreciation & Amortization",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_restructuring",
+          "category": "Restructuring Charges",
+          "description": "Restructuring costs subject to 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Synergies"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Restructuring Charges",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_synergies",
+          "category": "Synergies",
+          "description": "Pro forma cost savings sharing 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Restructuring Charges"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Synergies",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_tx_fees",
+          "category": "Transaction Expenses",
+          "description": "Transaction expenses capped at greater of $10M and 12.5% pre-EBITDA",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_tx_fees",
+            "cap_type": "GREATER_OF",
+            "dollar_limit": 10000000.0,
+            "percent_limit": 0.125,
+            "basis_metric": "PRE_ADDBACK_EBITDA",
+            "is_aggregate": false,
+            "shared_with_categories": [],
+            "exact_clause": "greater of $10,000,000 and 12.5% of pre-EBITDA",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Transaction Expenses",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        }
+      ],
+      "deductions": [],
+      "net_debt_rule": {
+        "debt_components": [
+          "Term Loans",
+          "Revolving Loans",
+          "Capital Leases"
+        ],
+        "excluded_debt": [],
+        "cash_netting_type": "UNCAPPED_CASH_NETTING",
+        "cash_cap_amount": null,
+        "cash_conditions": [
+          "unrestricted cash"
+        ],
+        "verbatim_clause": "Total Debt less cash",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "covenant_rule": {
+        "covenant_name": "Total Net Leverage Ratio",
+        "governing_section": "Section 7.11",
+        "metric_formula": "Consolidated Net Debt / LTM EBITDA",
+        "testing_frequency": "Quarterly",
+        "schedule": [
+          {
+            "tier_id": "tier_1",
+            "period_description": "Shall not exceed 4.5:1.00",
+            "effective_start_date": null,
+            "effective_end_date": null,
+            "ratio_ceiling": 4.5,
+            "notes": null
+          }
+        ],
+        "acquisition_holiday": null,
+        "verbatim_clause": "Section 7.11 Total Net Leverage Ratio shall not exceed 4.5:1.00",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "interpretations": [],
+      "human_review_items": [],
+      "is_approved": true,
+      "approved_by": null,
+      "approval_timestamp": null
+    }
+  },
+  {
+    "case_name": "Case 10: Missing Approvals Gate Block",
+    "expected_status": "Cannot compute",
+    "package": {
+      "package_id": "case_10_missing_approvals",
+      "company": "Synthetic Technologies Inc.",
+      "quarter": "Q3 2023",
+      "period_end_date": "2023-09-30",
+      "currency": "USD",
+      "unit_multiplier": 1.0,
+      "income_statement": {
+        "revenues": 80000000.0,
+        "operating_expenses": 0.0,
+        "operating_income": 0.0,
+        "interest_expense": 4000000.0,
+        "tax_expense": 2000000.0,
+        "depreciation_amortization": 4000000.0,
+        "net_income": 10000000.0
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 0.0,
+        "restricted_cash": 0.0,
+        "unrestricted_cash": 10000000.0,
+        "term_loans": 150000000.0,
+        "revolving_loans": 0.0,
+        "capital_leases": 0.0,
+        "letters_of_credit_drawn": 0.0,
+        "other_funded_debt": 0.0
+      },
+      "ledger_accounts": [
+        {
+          "account_code": "1010",
+          "account_name": "Operating Cash Account",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 10000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "2100",
+          "account_name": "Term Loan Facility A",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 150000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6100",
+          "account_name": "Interest Expense on Term Loan",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 4000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6200",
+          "account_name": "Corporate Income Tax Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 2000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6500",
+          "account_name": "Depreciation & Amortization Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 4000000.0,
+          "description": null,
+          "sub_entries": []
+        }
+      ],
+      "claimed_add_backs": [],
+      "prior_three_quarters_ebitda": [
+        20000000.0,
+        20000000.0,
+        20000000.0
+      ],
+      "is_approved_by_analyst": false
+    },
+    "ruleset": {
+      "ruleset_id": "ruleset_syn_standard",
+      "version_id": "SYN_v1",
+      "company": "Synthetic Technologies Inc.",
+      "source_hashes": {
+        "syn_doc_1": "hash_syn_123"
+      },
+      "created_at": "2023-01-01T00:00:00Z",
+      "starting_metric": "Consolidated Net Income",
+      "add_backs": [
+        {
+          "rule_id": "ab_interest",
+          "category": "Interest Expense",
+          "description": "Cash interest expense",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Interest Expense",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_taxes",
+          "category": "Taxes",
+          "description": "Taxes on income",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Taxes",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_da",
+          "category": "Depreciation & Amortization",
+          "description": "Depreciation & Amortization",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Depreciation & Amortization",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_restructuring",
+          "category": "Restructuring Charges",
+          "description": "Restructuring costs subject to 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Synergies"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Restructuring Charges",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_synergies",
+          "category": "Synergies",
+          "description": "Pro forma cost savings sharing 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Restructuring Charges"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Synergies",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_tx_fees",
+          "category": "Transaction Expenses",
+          "description": "Transaction expenses capped at greater of $10M and 12.5% pre-EBITDA",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_tx_fees",
+            "cap_type": "GREATER_OF",
+            "dollar_limit": 10000000.0,
+            "percent_limit": 0.125,
+            "basis_metric": "PRE_ADDBACK_EBITDA",
+            "is_aggregate": false,
+            "shared_with_categories": [],
+            "exact_clause": "greater of $10,000,000 and 12.5% of pre-EBITDA",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Transaction Expenses",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        }
+      ],
+      "deductions": [],
+      "net_debt_rule": {
+        "debt_components": [
+          "Term Loans",
+          "Revolving Loans",
+          "Capital Leases"
+        ],
+        "excluded_debt": [],
+        "cash_netting_type": "UNCAPPED_CASH_NETTING",
+        "cash_cap_amount": null,
+        "cash_conditions": [
+          "unrestricted cash"
+        ],
+        "verbatim_clause": "Total Debt less cash",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "covenant_rule": {
+        "covenant_name": "Total Net Leverage Ratio",
+        "governing_section": "Section 7.11",
+        "metric_formula": "Consolidated Net Debt / LTM EBITDA",
+        "testing_frequency": "Quarterly",
+        "schedule": [
+          {
+            "tier_id": "tier_1",
+            "period_description": "Shall not exceed 4.5:1.00",
+            "effective_start_date": null,
+            "effective_end_date": null,
+            "ratio_ceiling": 4.5,
+            "notes": null
+          }
+        ],
+        "acquisition_holiday": null,
+        "verbatim_clause": "Section 7.11 Total Net Leverage Ratio shall not exceed 4.5:1.00",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "interpretations": [],
+      "human_review_items": [],
+      "is_approved": false,
+      "approved_by": null,
+      "approval_timestamp": null
+    }
+  },
+  {
+    "case_name": "Case 11: Ineligible Add-back Rejection",
+    "expected_status": "Pass under all readings",
+    "package": {
+      "package_id": "case_11_ineligible_addback",
+      "company": "Synthetic Technologies Inc.",
+      "quarter": "Q3 2023",
+      "period_end_date": "2023-09-30",
+      "currency": "USD",
+      "unit_multiplier": 1.0,
+      "income_statement": {
+        "revenues": 80000000.0,
+        "operating_expenses": 0.0,
+        "operating_income": 0.0,
+        "interest_expense": 4000000.0,
+        "tax_expense": 2000000.0,
+        "depreciation_amortization": 4000000.0,
+        "net_income": 10000000.0
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 0.0,
+        "restricted_cash": 0.0,
+        "unrestricted_cash": 10000000.0,
+        "term_loans": 150000000.0,
+        "revolving_loans": 0.0,
+        "capital_leases": 0.0,
+        "letters_of_credit_drawn": 0.0,
+        "other_funded_debt": 0.0
+      },
+      "ledger_accounts": [
+        {
+          "account_code": "1010",
+          "account_name": "Operating Cash Account",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 10000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "2100",
+          "account_name": "Term Loan Facility A",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 150000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6100",
+          "account_name": "Interest Expense on Term Loan",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 4000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6200",
+          "account_name": "Corporate Income Tax Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 2000000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6500",
+          "account_name": "Depreciation & Amortization Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 4000000.0,
+          "description": null,
+          "sub_entries": []
+        }
+      ],
+      "claimed_add_backs": [
+        {
+          "addback_id": "cb11",
+          "category": "Restructuring Charges",
+          "claimed_amount": 10000000.0,
+          "description": "Routine maintenance and capex equipment replacement",
+          "supporting_evidence": "Capital asset register",
+          "contract_clause_reference": null,
+          "quarter": null,
+          "ledger_account_code": null
+        }
+      ],
+      "prior_three_quarters_ebitda": [
+        20000000.0,
+        20000000.0,
+        20000000.0
+      ],
+      "is_approved_by_analyst": false
+    },
+    "ruleset": {
+      "ruleset_id": "ruleset_syn_standard",
+      "version_id": "SYN_v1",
+      "company": "Synthetic Technologies Inc.",
+      "source_hashes": {
+        "syn_doc_1": "hash_syn_123"
+      },
+      "created_at": "2023-01-01T00:00:00Z",
+      "starting_metric": "Consolidated Net Income",
+      "add_backs": [
+        {
+          "rule_id": "ab_interest",
+          "category": "Interest Expense",
+          "description": "Cash interest expense",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Interest Expense",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_taxes",
+          "category": "Taxes",
+          "description": "Taxes on income",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Taxes",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_da",
+          "category": "Depreciation & Amortization",
+          "description": "Depreciation & Amortization",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Depreciation & Amortization",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_restructuring",
+          "category": "Restructuring Charges",
+          "description": "Restructuring costs subject to 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Synergies"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Restructuring Charges",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_synergies",
+          "category": "Synergies",
+          "description": "Pro forma cost savings sharing 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Restructuring Charges"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Synergies",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_tx_fees",
+          "category": "Transaction Expenses",
+          "description": "Transaction expenses capped at greater of $10M and 12.5% pre-EBITDA",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_tx_fees",
+            "cap_type": "GREATER_OF",
+            "dollar_limit": 10000000.0,
+            "percent_limit": 0.125,
+            "basis_metric": "PRE_ADDBACK_EBITDA",
+            "is_aggregate": false,
+            "shared_with_categories": [],
+            "exact_clause": "greater of $10,000,000 and 12.5% of pre-EBITDA",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Transaction Expenses",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        }
+      ],
+      "deductions": [],
+      "net_debt_rule": {
+        "debt_components": [
+          "Term Loans",
+          "Revolving Loans",
+          "Capital Leases"
+        ],
+        "excluded_debt": [],
+        "cash_netting_type": "UNCAPPED_CASH_NETTING",
+        "cash_cap_amount": null,
+        "cash_conditions": [
+          "unrestricted cash"
+        ],
+        "verbatim_clause": "Total Debt less cash",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "covenant_rule": {
+        "covenant_name": "Total Net Leverage Ratio",
+        "governing_section": "Section 7.11",
+        "metric_formula": "Consolidated Net Debt / LTM EBITDA",
+        "testing_frequency": "Quarterly",
+        "schedule": [
+          {
+            "tier_id": "tier_1",
+            "period_description": "Shall not exceed 4.5:1.00",
+            "effective_start_date": null,
+            "effective_end_date": null,
+            "ratio_ceiling": 4.5,
+            "notes": null
+          }
+        ],
+        "acquisition_holiday": null,
+        "verbatim_clause": "Section 7.11 Total Net Leverage Ratio shall not exceed 4.5:1.00",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "interpretations": [],
+      "human_review_items": [],
+      "is_approved": true,
+      "approved_by": null,
+      "approval_timestamp": null
+    }
+  },
+  {
+    "case_name": "Case 12: Unit Multiplier Scaling ($000s)",
+    "expected_status": "Pass under all readings",
+    "package": {
+      "package_id": "case_12_unit_scaling",
+      "company": "Synthetic Technologies Inc.",
+      "quarter": "Q3 2023",
+      "period_end_date": "2023-09-30",
+      "currency": "USD",
+      "unit_multiplier": 1000.0,
+      "income_statement": {
+        "revenues": 80000.0,
+        "operating_expenses": 0.0,
+        "operating_income": 0.0,
+        "interest_expense": 4000.0,
+        "tax_expense": 2000.0,
+        "depreciation_amortization": 4000.0,
+        "net_income": 10000.0
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 0.0,
+        "restricted_cash": 0.0,
+        "unrestricted_cash": 10000.0,
+        "term_loans": 150000.0,
+        "revolving_loans": 0.0,
+        "capital_leases": 0.0,
+        "letters_of_credit_drawn": 0.0,
+        "other_funded_debt": 0.0
+      },
+      "ledger_accounts": [
+        {
+          "account_code": "1010",
+          "account_name": "Operating Cash Account",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 10000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "2100",
+          "account_name": "Term Loan Facility A",
+          "statement_type": "BALANCE_SHEET",
+          "balance": 150000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6100",
+          "account_name": "Interest Expense on Term Loan",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 4000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6200",
+          "account_name": "Corporate Income Tax Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 2000.0,
+          "description": null,
+          "sub_entries": []
+        },
+        {
+          "account_code": "6500",
+          "account_name": "Depreciation & Amortization Expense",
+          "statement_type": "INCOME_STATEMENT",
+          "balance": 4000.0,
+          "description": null,
+          "sub_entries": []
+        }
+      ],
+      "claimed_add_backs": [],
+      "prior_three_quarters_ebitda": [
+        20000000.0,
+        20000000.0,
+        20000000.0
+      ],
+      "is_approved_by_analyst": false
+    },
+    "ruleset": {
+      "ruleset_id": "ruleset_syn_standard",
+      "version_id": "SYN_v1",
+      "company": "Synthetic Technologies Inc.",
+      "source_hashes": {
+        "syn_doc_1": "hash_syn_123"
+      },
+      "created_at": "2023-01-01T00:00:00Z",
+      "starting_metric": "Consolidated Net Income",
+      "add_backs": [
+        {
+          "rule_id": "ab_interest",
+          "category": "Interest Expense",
+          "description": "Cash interest expense",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Interest Expense",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_taxes",
+          "category": "Taxes",
+          "description": "Taxes on income",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Taxes",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_da",
+          "category": "Depreciation & Amortization",
+          "description": "Depreciation & Amortization",
+          "direction": "ADDITION",
+          "is_subject_to_cap": false,
+          "cap": null,
+          "conditions": [],
+          "verbatim_clause": "Depreciation & Amortization",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_restructuring",
+          "category": "Restructuring Charges",
+          "description": "Restructuring costs subject to 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Synergies"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Restructuring Charges",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_synergies",
+          "category": "Synergies",
+          "description": "Pro forma cost savings sharing 25% post-circular cap",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_restruct_25_post",
+            "cap_type": "PERCENT_OF_EBITDA_POST",
+            "dollar_limit": null,
+            "percent_limit": 0.25,
+            "basis_metric": "POST_ADDBACK_EBITDA",
+            "is_aggregate": true,
+            "shared_with_categories": [
+              "Restructuring Charges"
+            ],
+            "exact_clause": "25% of Consolidated EBITDA calculated after giving effect",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Synergies",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        },
+        {
+          "rule_id": "ab_tx_fees",
+          "category": "Transaction Expenses",
+          "description": "Transaction expenses capped at greater of $10M and 12.5% pre-EBITDA",
+          "direction": "ADDITION",
+          "is_subject_to_cap": true,
+          "cap": {
+            "cap_id": "cap_tx_fees",
+            "cap_type": "GREATER_OF",
+            "dollar_limit": 10000000.0,
+            "percent_limit": 0.125,
+            "basis_metric": "PRE_ADDBACK_EBITDA",
+            "is_aggregate": false,
+            "shared_with_categories": [],
+            "exact_clause": "greater of $10,000,000 and 12.5% of pre-EBITDA",
+            "citation": "[Doc: syn_doc_1 | Section 1.01]"
+          },
+          "conditions": [],
+          "verbatim_clause": "Transaction Expenses",
+          "citation": "[Doc: syn_doc_1 | Section 1.01]"
+        }
+      ],
+      "deductions": [],
+      "net_debt_rule": {
+        "debt_components": [
+          "Term Loans",
+          "Revolving Loans",
+          "Capital Leases"
+        ],
+        "excluded_debt": [],
+        "cash_netting_type": "UNCAPPED_CASH_NETTING",
+        "cash_cap_amount": null,
+        "cash_conditions": [
+          "unrestricted cash"
+        ],
+        "verbatim_clause": "Total Debt less cash",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "covenant_rule": {
+        "covenant_name": "Total Net Leverage Ratio",
+        "governing_section": "Section 7.11",
+        "metric_formula": "Consolidated Net Debt / LTM EBITDA",
+        "testing_frequency": "Quarterly",
+        "schedule": [
+          {
+            "tier_id": "tier_1",
+            "period_description": "Shall not exceed 4.5:1.00",
+            "effective_start_date": null,
+            "effective_end_date": null,
+            "ratio_ceiling": 4.5,
+            "notes": null
+          }
+        ],
+        "acquisition_holiday": null,
+        "verbatim_clause": "Section 7.11 Total Net Leverage Ratio shall not exceed 4.5:1.00",
+        "citation": "[Doc: syn_doc_1 | Section 7.11]"
+      },
+      "interpretations": [],
+      "human_review_items": [],
+      "is_approved": true,
+      "approved_by": null,
+      "approval_timestamp": null
+    }
+  }
+]
